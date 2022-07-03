@@ -13,8 +13,13 @@ fn main() {
     println!("Searching for {:?}", config.query);
     println!("In file {:?}", config.filename);
 
+    run(config);
+}
+
+fn run(config: Config) {
     let contents =
         fs::read_to_string(config.filename).expect("파일을 읽는 동안 문제가 발생했습니다.");
+
     println!("With text:\n{}", contents);
 }
 
