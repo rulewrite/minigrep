@@ -16,7 +16,11 @@ impl Config {
     let query = args[1].clone();
     let filename = args[2].clone();
 
-    let ignore_case = env::var("IGNORE_CASE").is_ok();
+    let ignore_case = if args.len() > 3 {
+      args[3].to_lowercase() == "y"
+    } else {
+      env::var("IGNORE_CASE").is_ok()
+    };
 
     Ok(Config {
       query,
