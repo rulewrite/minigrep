@@ -1,9 +1,10 @@
 use std::error::Error;
-use std::fs;
+use std::{env, fs};
 
 pub struct Config {
   pub query: String,
   pub filename: String,
+  pub ignore_case: bool,
 }
 
 impl Config {
@@ -15,7 +16,13 @@ impl Config {
     let query = args[1].clone();
     let filename = args[2].clone();
 
-    Ok(Config { query, filename })
+    let ignore_case = env::var("IGNORE_CASE").is_ok();
+
+    Ok(Config {
+      query,
+      filename,
+      ignore_case,
+    })
   }
 }
 
