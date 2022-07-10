@@ -8,18 +8,21 @@ pub struct Config {
 }
 
 impl Config {
-  pub fn new(args: &[String]) -> Result<Config, &'static str> {
-    if args.len() < 3 {
-      return Err("인자가 충분하지 않습니다.");
-    }
+  pub fn new(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str> {
+    args.next();
 
-    let query = args[1].clone();
-    let filename = args[2].clone();
+    let query = match args.next() {
+      Some(arg) => arg,
+      None => return Err("검색할 문자열을 받지 못했습니다."),
+    };
+    let filename = match args.next() {
+      Some(arg) => arg,
+      None => return Err("파일명을 받지 못했습니다."),
+    };
 
-    let ignore_case = if args.len() > 3 {
-      args[3].to_lowercase() == "y"
-    } else {
-      env::var("IGNORE_CASE").is_ok()
+    let ignore_case = match args.next() {
+      Some(arg) => arg.to_lowercase() == "y",
+      None => env::var("IGNORE_CASE").is_ok(),
     };
 
     Ok(Config {

@@ -4,9 +4,7 @@ use std::process;
 use minigrep::Config;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let config = Config::new(&args).unwrap_or_else(|err| {
+    let config = Config::new(env::args()).unwrap_or_else(|err| {
         eprintln!("인자 파싱에 문제가 발생했습니다: {}", err);
         process::exit(1);
     });
