@@ -1,5 +1,7 @@
 [package]
-name = "minigrep"
+name = "minigrep_rulewrite"
+license = "MIT OR Apache-2.0"
+description = "A simple grep implementation from The Rust Programing Book"
 version = "0.1.0"
 edition = "2021"
 
